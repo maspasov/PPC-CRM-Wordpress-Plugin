@@ -5,9 +5,11 @@ jQuery(document).ready(function($){
     $('input[name$="input_8"]').attr('placeholder','Enter Security Code');
     
     $('a').click(function() {
-        if ($(this).attr('href').indexOf(contact_us_slug) != -1) {
-            _gaq.push(['_trackEvent', 'webform', 'visit', 'quote']);
-        };
+        if (typeof contact_us_slug != 'undefined' ) {
+            if ($(this).attr('href').indexOf(contact_us_slug) != -1) {
+                _gaq.push(['_trackEvent', 'webform', 'visit', 'quote']);
+            }
+        }
     });
 
     //Cookie Policy Message
