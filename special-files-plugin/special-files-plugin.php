@@ -1,7 +1,7 @@
 <?php
 /**
 * Plugin Name: #FOS Functions
-* Version:     1.2.1   
+* Version:     1.2.2   
 * Description: This plugin add important functions for PPC Phone numbers, CRM, Chat
 * Author:      FOS WP Team
 * Author URI:  vortex.1stonlinesolutions.com/dev/WPU/

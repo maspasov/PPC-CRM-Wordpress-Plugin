@@ -1,11 +1,14 @@
 jQuery(document).ready(function($){ 
 
-
-
     $('input[name$="input_8"]').attr('placeholder','Enter Security Code');
     
     $('a').click(function() {
-        if (typeof contact_us_slug != 'undefined' ) {
+        /*!
+            TO DO !important
+            define contact_us_slug in your footer.php
+            var contact_us_slug = "<?php echo get_slug(get_option('contact_us_slug')); ?>";
+        */
+        if (typeof contact_us_slug != 'undefined') {
             if ($(this).attr('href').indexOf(contact_us_slug) != -1) {
                 _gaq.push(['_trackEvent', 'webform', 'visit', 'quote']);
             }
@@ -13,22 +16,29 @@ jQuery(document).ready(function($){
     });
 
     //Cookie Policy Message
-    var ln = bloginfo_url.split('.').length;
-    var domain_extension = bloginfo_url.split('.')[ln-1];
-    $(".close_privacy").remove();
+    /*!
+        TO DO !important
+        define bloginfo_url in your footer.php
+    */
+    if(typeof bloginfo_url != 'undefined') {
+       
+        var ln = bloginfo_url.split('.').length;
+        var domain_extension = bloginfo_url.split('.')[ln-1];
     
-    if(domain_extension != "au") {
-          //UK Cookie Policy
-         $('#cookie-policy').html('<p>Updated cookies policy - you\'ll see this message only once. ' + bloginfo_name + ' uses cookies on this website. They help us to know more about you and how you use our website, which improves the browsing experience and marketing - both for you and for others. They are stored locally on your computer or mobile device. To accept cookies continue browsing as normal. Learn more <a href="http://ico.org.uk/" class="close_privacy" target="_blank" rel="nofollow">about cookies</a>.<span class="close_privacy">x</span></p>');
-    } else {
-         //AU Cookie Policy
-         $('#cookie-policy').html('<p>Updated cookies policy - you\'ll see this message only once. ' + bloginfo_name + ' uses cookies on this website. They help us to know more about you and how you use our website, which improves the browsing experience and marketing - both for you and for others. They are stored locally on your computer or mobile device. To accept cookies continue browsing as normal. Learn more <a href="http://www.oaic.gov.au/" class="close_privacy"  target="_blank" rel="nofollow">about cookies</a>.<span class="close_privacy">x</span></p>');
-    }
+        $(".close_privacy").remove();
+        
+        if(domain_extension != "au") {
+              //UK Cookie Policy
+             $('#cookie-policy').html('<p>Updated cookies policy - you\'ll see this message only once. ' + bloginfo_name + ' uses cookies on this website. They help us to know more about you and how you use our website, which improves the browsing experience and marketing - both for you and for others. They are stored locally on your computer or mobile device. To accept cookies continue browsing as normal. Learn more <a href="http://ico.org.uk/" class="close_privacy" target="_blank" rel="nofollow">about cookies</a>.<span class="close_privacy">x</span></p>');
+        } else {
+             //AU Cookie Policy
+             $('#cookie-policy').html('<p>Updated cookies policy - you\'ll see this message only once. ' + bloginfo_name + ' uses cookies on this website. They help us to know more about you and how you use our website, which improves the browsing experience and marketing - both for you and for others. They are stored locally on your computer or mobile device. To accept cookies continue browsing as normal. Learn more <a href="http://www.oaic.gov.au/" class="close_privacy"  target="_blank" rel="nofollow">about cookies</a>.<span class="close_privacy">x</span></p>');
+        }
 
-   
-    $('.close_privacy').click(function() {
-          setPrivacyCookie();
-    });
+        $('.close_privacy').click(function() {
+              setPrivacyCookie();
+        });
+    }
      
     //GForm Placeholder 
     $('input[type=text]').ToggleInputValue();
