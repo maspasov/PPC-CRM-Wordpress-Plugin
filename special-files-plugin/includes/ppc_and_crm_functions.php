@@ -72,34 +72,42 @@ if (!function_exists('getChatSource')) {
 }
 
 if (!function_exists('make_post_request')) {
-    function make_post_request($url, $data) {
+    function make_post_request($url, $data, $parse_url = 1) {
 
-        // parse the given URL
-        $url = parse_url($url);
-        if ($url['scheme'] != 'http') {
-            return 'Only HTTP request are supported!';
-        }
-        $url['host'] = strtolower($url['host']);
-        // add www. at the begining
-        if (!stristr($url['host'], 'www.')) {
-            $url = 'http://www.' . $url['host'] . $url['path'];
-        } else {
-            $url = 'http://' . $url['host'] . $url['path'];
+        if( $parse_url ){
+            // parse the given URL
+            $url = parse_url($url);
+            if ($url['scheme'] != 'http') {
+                return 'Only HTTP request are supported!';
+            }
+
+            $url['host'] = strtolower($url['host']);
+            // add www. at the begining
+            if (!stristr($url['host'], 'www.')) {
+                $url = 'http://www.' . $url['host'] . $url['path'];
+            } else {
+                $url = 'http://' . $url['host'] . $url['path'];
+            }
         }
         //url-ify the data for the POST
         foreach ($data as $key => $value) {
             $data_string.=$key . '=' . urlencode($value) . '&';
         }
         rtrim($data_string, '&');
+
         //open connection
         $ch = curl_init();
+
         //set the url, number of POST vars, POST data
         curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_REFERER, $_SERVER['HTTP_HOST']);
         curl_setopt($ch, CURLOPT_POST, count($data));
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+
         //execute post
         $result = curl_exec($ch);
+
         //close connection
         curl_close($ch);
         return array('status' => 'ok', 'content' => $result);
